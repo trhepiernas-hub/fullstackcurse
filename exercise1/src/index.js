@@ -1,29 +1,54 @@
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
-const Botoai = (prompt) => {
+const Button = (prompt) => {
   return (
     <button onClick={prompt.click}>{prompt.text}</button>
   )
 }
 
-const Display = (prompt) => {
+const StatisticLine = (prompt) => {
   return (
-    <p>{prompt.text}</p>
+    <td>{prompt.text} {prompt.value}</td>
   )
 }
 
 const Statistics = (props) => {
+
+  if (props.totalValue === 0) {
+    return (
+      <div>
+        <h1>statistics</h1>
+        <p>No feedback given</p>
+      </div>
+
+    )
+    
+  }
   return (
-    <div>
+    <tfoot>
     <h1>statistics</h1>
-      <Display text={props.dpGood} />
-      <Display text={props.dpNeutral} />
-      <Display text={props.dpBad} />
-      <Display text={props.dpAll} />
-      <Display text={props.dpAverage} />
-      <Display text={props.dpPositive} />
-    </div>
+      <table>
+        <tr>  
+        <StatisticLine text={props.dpGood} value={props.goodValue} />
+        </tr>
+        <tr>
+          <StatisticLine text={props.dpNeutral} value={props.neutralValue} />
+        </tr>
+        <tr>
+          <StatisticLine text={props.dpBad} value={props.badValue} />
+        </tr>
+        <tr>
+          <StatisticLine text={props.dpAll} value={props.totalValue} />
+        </tr>
+        <tr>
+          <StatisticLine text={props.dpAverage} value={props.averageValue} />
+        </tr>
+        <tr>
+          <StatisticLine text={props.dpPositive} value={props.positivePercentageValue} />
+        </tr>
+      </table>
+    </tfoot>
   )
 }
 
@@ -41,11 +66,18 @@ const App = () => {
 
   return (
     <div>
-      <h1>give feedbak</h1>
-      <Botoai click={() => setGood(good + 1)} text={"good"}/>
-      <Botoai click={() => setNeutral(neutral + 1)} text={"neutral"}/>
-      <Botoai click={() => setBad(bad + 1)} text={"bad"}/>
-      <Statistics dpGood={"good " + good} dpNeutral={"neutral " + neutral} dpBad={"bad " + bad} dpAll={"all " + total} dpAverage={"average " + average } dpPositive={"positive " + positivePercentage + " %"} />
+      <h1>give feedback</h1>
+      <Button click={() => setGood(good + 1)} text={"good"}/>
+      <Button click={() => setNeutral(neutral + 1)} text={"neutral"}/>
+      <Button click={() => setBad(bad + 1)} text={"bad"}/>
+      <Statistics 
+        dpGood={"good"} goodValue={good}
+        dpNeutral={"neutral"} neutralValue={neutral}
+        dpBad={"bad"} badValue={bad}
+        dpAll={"all"} totalValue={total}
+        dpAverage={"average"} averageValue={average}  
+        dpPositive={"positive"} positivePercentageValue={positivePercentage + "%"} 
+      />
     </div>
   )
 }
