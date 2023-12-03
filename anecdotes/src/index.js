@@ -10,6 +10,24 @@ const App = (props) => {
     arrayCopy[selected] += 1; // Incrementa el voto para la anécdota seleccionada
     setVote(arrayCopy); // Actualiza el estado con la copia modificada
   };
+  const mostVoted = () => {
+    let b = 0;
+    let theMostVoted;
+    for (let i = 0; i < votearray.length; i++) {
+      const element = votearray[i];
+      if (element > b) {
+        theMostVoted = props.anecdotes[i];
+        b = element
+      }
+      
+    }
+    return (
+      <div>
+        <p>{theMostVoted}</p>
+        <p>has {b} votes</p>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -19,6 +37,10 @@ const App = (props) => {
       <br/>
       <Button click={() => setSelected(Math.floor(Math.random() * props.anecdotes.length))} text={"next anecdote"}/>
       <Button click={handleVote} text={"Vote"}/>
+      <br/>
+      <h1>Annecdote with most votes</h1>
+      {mostVoted()}
+      
     </div>
   )
 }
