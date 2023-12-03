@@ -1,3 +1,8 @@
+# Ejemplo de Diagrama de Secuencia Mermaid
+
+Este es un ejemplo de cómo crear un diagrama de secuencia usando Mermaid en GitHub.
+
+```mermaid
 sequenceDiagram
     participant browser
     participant server
