@@ -2,14 +2,23 @@ import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
 const App = (props) => {
-  const [selected, setSelected] = useState(0)
-  const [vote, set]
+  const [selected, setSelected] = useState(0);
+  const [votearray, setVote] = useState(new Array(props.anecdotes.length).fill(0));
+
+  const handleVote = () => {
+    const arrayCopy = [...votearray]; // Crea una copia del array votearray
+    arrayCopy[selected] += 1; // Incrementa el voto para la anécdota seleccionada
+    setVote(arrayCopy); // Actualiza el estado con la copia modificada
+  };
 
   return (
     <div>
       {props.anecdotes[selected]}
       <br/>
+      <p>has {votearray[selected]} votes</p>
+      <br/>
       <Button click={() => setSelected(Math.floor(Math.random() * props.anecdotes.length))} text={"next anecdote"}/>
+      <Button click={handleVote} text={"Vote"}/>
     </div>
   )
 }
